@@ -1,2 +1,3 @@
-# ds_course
-some basic datastructure (using C98, according to the course requirements)
+# BUAA-DS-2019Spring
+
+历次作业编程题源码（作业截止后上传）
