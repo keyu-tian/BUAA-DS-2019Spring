@@ -1,0 +1,44 @@
+#include <stdio.h>
+
+#define MN 15
+#define PC putchar
+void UPRT(const int a)
+{
+	if (a >= 10)
+		UPRT(a / 10);
+	PC(a % 10 + 48);
+}
+
+int next_permutation(int *begin, int *end)
+{
+	int *now = end-1, *prev = now-1, tp;
+	while (now > begin && *prev >= *now)
+		--now, --prev;
+	if (now <= begin)
+		return 0;
+
+	for (now = end-1; *now <= *prev; now--);
+	tp = *now, *now = *prev, *prev = tp;
+	for (++prev, --end; prev<end; prev++, end--)
+		tp = *end, *end = *prev, *prev = tp;
+	return 1;
+}
+
+int main()
+{
+	int i, n, a[MN];
+	scanf("%d", &n);
+	for (i=0; i<n; ++i)
+		a[i] = i+1;
+
+	do
+	{
+		for (i=0; i<n; ++i)
+			UPRT(a[i]), PC(32);
+		PC(10);
+	}
+	while (next_permutation(a, a+n));
+
+	return 0;
+}
+
