@@ -35,7 +35,7 @@ int ScanNumber(void)
 	return sign * ret;
 }
 
-int CountFactor(void)
+int CalcFactor(void)
 {
 	int ret = ScanNumber();
 	while (*cur == '*' || *cur == '/')
@@ -50,13 +50,13 @@ int CountFactor(void)
 	return ret;
 }
 
-int CountExpr(void)
+int CalcExpr(void)
 {
-	int ret = CountFactor();
+	int ret = CalcFactor();
 	while (*cur == '+' || *cur == '-')
 	{
 		char op = *cur++;
-		int next = CountFactor();
+		int next = CalcFactor();
 		if (op == '+')
 			ret += next;
 		else
@@ -68,7 +68,7 @@ int CountExpr(void)
 int main()
 {
 	ReadExpr();
-	printf("%d", CountExpr());
+	printf("%d", CalcExpr());
 
 	return 0;
 }
