@@ -55,6 +55,7 @@ bool empty(const List *pL);
 cint size(const List *pL);
 List *copy(List *pDest, const List *pSrc);
 List *append(List *pDest, const List *pSrc);
+List *merge(List *pD, const List *pS1, const List *pS2);
 
 
 // pushing and popping
