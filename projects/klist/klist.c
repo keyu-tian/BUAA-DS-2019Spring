@@ -59,6 +59,26 @@ List *append(List *pDest, const List *pSrc)
 	return pDest;
 }
 
+List *merge(List *pD, const List *pS1, const List *pS2)
+{
+	clear(pD);
+	const Node *p = pS1->head, *q = pS2->head;
+	while (p && q)
+	{
+		if (less(p->data, q->data))
+			push_back(pD, p->data), p = p->next;
+		else
+			push_back(pD, q->data), q = q->next;
+	}
+
+	while (p)
+		push_back(pD, p->data), p = p->next;
+	while (q)
+		push_back(pD, q->data), q = q->next;
+	
+	return pD;
+}
+
 
 
 // pushing and popping
