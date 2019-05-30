@@ -1,0 +1,133 @@
+/*
+	FileName: stack.c 
+	Author: Kevin
+	Date: 8/04/19 11:01
+	Description: implement a stack
+*/
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <assert.h>
+
+#define CAP 100
+
+typedef enum {false, true} bool;
+typedef enum
+{
+	EXIT_OP = -1,
+	POP_OP = 0,
+	PUSH_OP = 1
+} OPERATION_INEDX;
+
+
+typedef struct
+{
+	int t;
+	int s[CAP+1];
+
+	void (*push)(const int v);
+	void (*pop)(void);
+	int (*top)(void);
+	bool (*empty)(void); 
+	bool (*full)(void);
+	void (*print)(void);
+
+} SingletonStack;
+static SingletonStack *_this = NULL;
+
+
+void construct(SingletonStack *pStack);
+
+void _push(const int v);
+void _pop(void);
+int _top(void);
+bool _empty(void);
+bool _full(void);
+void _print(void);
+
+
+int main()
+{
+	SingletonStack stack;
+	construct(&stack);
+
+	int op, val;
+	while (scanf("%d", &op), op != EXIT_OP)
+	{
+		switch(op)
+		{
+			case POP_OP:
+				if (stack.empty())
+					printf("error ");
+				else
+				{
+					printf("%d ", stack.top());
+					stack.pop();
+				}
+				break;
+
+			case PUSH_OP:
+				if (stack.full())
+					printf("error ");
+				else
+				{
+					scanf("%d", &val);
+					stack.push(val);
+				}
+				break;
+		}
+	}
+
+	return 0;
+}
+
+
+
+void construct(SingletonStack *pStack)
+{
+	assert(_this == NULL);
+	_this = pStack;
+
+	pStack->t = 0;
+	pStack->push = _push;
+	pStack->pop = _pop;
+	pStack->top = _top;
+	pStack->empty = _empty;
+	pStack->full = _full;
+	pStack->print = _print;
+}
+
+void _push(const int v)
+{
+	_this->s[_this->t++] = v;
+}
+
+void _pop(void)
+{
+	--_this->t;
+}
+
+int _top(void)
+{
+	return _this->s[_this->t-1];
+}
+
+bool _empty(void)
+{
+	return _this->t == 0;
+}
+
+bool _full(void)
+{
+	return _this->t == CAP;
+}
+
+void _print(void)
+{
+	int i;
+	for (i=0; i<_this->t; ++i)
+	{
+		printf("%d ", _this->s[i]);
+	}
+}
+
