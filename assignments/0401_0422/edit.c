@@ -19,8 +19,8 @@ typedef enum
 {
     INSERT_OP	=	1,
     ERASE_OP	=	2,
-    UNDO_OP		=	3,
-    EXIT_OP		=	-1
+    UNDO_OP	=	3,
+    EXIT_OP	=	-1
 } OPER_INDEX;
 
 typedef struct
@@ -51,12 +51,6 @@ int main(void)
 	Pair pair = read_input();
 	int prev_n = pair.first, next_n = pair.second;
 	do_prev_opers(prev_n);
-
-//	int i;
-//	for (i=-prev_n; i<=0; ++i)
-//		printf("s%d:\n", i), println(strs+i), putchar('\n');
-//	return 0;
-
 	do_next_opers(prev_n, next_n);
 
 	return 0;
